@@ -1,0 +1,28 @@
+// User function Template for Java
+
+/*class Node {
+    int data;
+    Node left;
+    Node right;
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}*/
+
+class Solution {
+    // Function to return the diameter of a Binary Tree.
+    int diameter(Node root) {
+        int[] diameter = new int[1];
+        height(root,diameter);
+        return 1+diameter[0];
+    }
+    private int height(Node node,int[] diameter){
+        if(node == null) return 0;
+        int lh = height(node.left,diameter);
+        int rh = height(node.right,diameter);
+        diameter[0] = Math.max(diameter[0],lh+rh);
+        return 1 + Math.max(lh,rh);
+    }
+}
