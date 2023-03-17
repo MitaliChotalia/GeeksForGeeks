@@ -1,0 +1,28 @@
+class Solution{
+   
+    public List<Node> printAllDups(Node root)
+    {
+       List<Node> li = new ArrayList<>();
+       HashMap<String, Integer> hm = new HashMap<>();
+       solve(root, hm, li);
+       Collections.sort(li, (node1, node2) -> node1.data-node2.data);
+       return li;
+    }
+    
+    public String solve(Node root, HashMap<String, Integer> hm, List<Node> li){
+        if(root==null)
+            return "#";
+            
+        String left = solve(root.left, hm, li);
+        String right = solve(root.right, hm, li);
+        String subtree = "("+ left + ")" + "(" + right + ")" + String.valueOf(root.data);
+        
+        hm.put(subtree, hm.getOrDefault(subtree,0)+1);
+        if(hm.get(subtree)==2)
+            li.add(root);
+        
+        return subtree;
+    
+    }
+    
+}
